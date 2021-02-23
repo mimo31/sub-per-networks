@@ -19,8 +19,7 @@ namespace subpernets
 /**
  * setup data taken from https://www.sent.cz/TK/spn.pdf
  */
-
-void Program::run()
+void encrypt_decrypt()
 {
 	const SBox sbox(4, vec<uint32_t>{
 		0x8, 0xf, 0x3, 0x0, 0xa, 0x5, 0x9, 0x6, 0xc, 0x1, 0xe, 0x2, 0x7, 0x4, 0xd, 0xb
@@ -39,10 +38,26 @@ void Program::run()
 	
 	using std::cout;
 	cout << std::hex;
+
 	cout << spn.encrypt(BitArray(16, 0x0000)).get_int() << '\n';
 	cout << spn.encrypt(BitArray(16, 0xffff)).get_int() << '\n';
 	cout << spn.encrypt(BitArray(16, 0x0123)).get_int() << '\n';
 	cout << spn.encrypt(BitArray(16, 0xca15)).get_int() << '\n';
+
+	cout << spn.decrypt(BitArray(16, 0x6e25)).get_int() << '\n';
+	cout << spn.decrypt(BitArray(16, 0xc1e7)).get_int() << '\n';
+	cout << spn.decrypt(BitArray(16, 0xdea4)).get_int() << '\n';
+	cout << spn.decrypt(BitArray(16, 0x63ee)).get_int() << '\n';
+}
+
+void linear_attack()
+{
+
+}
+
+void Program::run()
+{
+	
 }
 
 }
