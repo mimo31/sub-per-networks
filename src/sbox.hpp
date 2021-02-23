@@ -17,16 +17,16 @@ namespace subpernets
 class SBox
 {
 private:
-	int bits;
+	uint32_t bits;
 	vec<uint32_t> table;
 	vec<uint32_t> rev_table;
 
-	BitArray apply_table(const vec<uint32_t>& tb, const int width, const BitArray data) const;
+	BitArray apply_table(const vec<uint32_t>& tb, const uint32_t width, const BitArray& data) const;
 
 public:
-	SBox(const int bits, const vec<uint32_t>& table);
-	BitArray apply(const int width, const BitArray data) const;
-	BitArray rev_apply(const int width, const BitArray data) const;
+	SBox(const uint32_t bits, const vec<uint32_t>& table);
+	BitArray apply(const uint32_t width, const BitArray& data) const;
+	BitArray rev_apply(const uint32_t width, const BitArray& data) const;
 };
 
 }

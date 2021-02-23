@@ -31,8 +31,8 @@ private:
 
 public:
 	Spn(const int boxes, const int boxsize, const SBox& sbox, const Permutation& p_layer, const int rounds, const vec<BitArray>& keys);
-	BitArray encrypt(const BitArray plaintxt);
-	BitArray decrypt(const BitArray ciphertxt);
+	BitArray encrypt(const BitArray& plaintxt) const;
+	BitArray decrypt(const BitArray& ciphertxt) const;
 };
 
 }

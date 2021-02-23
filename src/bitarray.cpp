@@ -13,7 +13,7 @@ namespace subpernets
 
 uint32_t BitArray::segments() const
 {
-	return (width - 1) / 64 + 1;
+	return (width + 63) / 64;
 }
 
 BitArray::BitArray(const int width)
@@ -30,7 +30,7 @@ BitArray::BitArray(const int width, const vec<uint64_t> data)
 }
 
 BitArray::BitArray(const int width, const uint64_t data)
-	: width(width), data(vec<uint64_t>{ data })
+	: width(width), data(width != 0 ? vec<uint64_t>{ data } : vec<uint64_t>())
 {
 }
 
@@ -74,6 +74,18 @@ bool BitArray::operator[](const int ind) const
 	return (data[bl] >> rem) & 1;
 }
 
+bool BitArray::operator==(const BitArray& other) const
+{
+	if (width != other.width)
+		return false;
+	for (uint32_t i = 0; i < segments(); i++)
+	{
+		if (data[i] != other.data[i])
+			return false;
+	}
+	return true;
+}
+
 BitArray BitArray::subarray(const int from, const int to) const
 {
 	const int len = to - from;
@@ -88,7 +100,7 @@ BitArray BitArray::subarray(const int from, const int to) const
 		int trans_len;
 		if (segafter * 64 > to)
 		{
-			trans_bts = data[p0 / 64] & ((1ul << (to % 64)) - 1) >> (p0 % 64);
+			trans_bts = (data[p0 / 64] & ((1ul << (to % 64)) - 1)) >> (p0 % 64);
 			trans_len = to - p0;
 			p0 = to;
 		}
@@ -125,8 +137,8 @@ BitArray BitArray::concat(const BitArray& other) const
 	const int sgs0 = other.segments();
 	for (int i = 0; i < sgs0; i++)
 		newdata[i] = other.data[i];
-	int nextseg = width / 64;
-	int nexti = width % 64;
+	int nextseg = other.width / 64;
+	int nexti = other.width % 64;
 	const int sgs1 = segments();
 	for (int i = 0; i < sgs1; i++)
 	{

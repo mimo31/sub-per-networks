@@ -18,7 +18,7 @@ namespace subpernets
 class BitArray
 {
 private:
-	int width = 0;
+	uint32_t width = 0;
 	vec<uint64_t> data;
 
 	uint32_t segments() const;
@@ -34,6 +34,7 @@ public:
 	BitArray operator^(const BitArray& other) const;
 	BitArray& operator^=(const BitArray& other);
 	bool operator[](const int ind) const;
+	bool operator==(const BitArray& other) const;
 
 	BitArray subarray(const int from, const int to) const;
 	BitArray concat(const BitArray& other) const;

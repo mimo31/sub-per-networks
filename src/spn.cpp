@@ -6,6 +6,9 @@
  */
 #include "spn.hpp"
 
+#include <iomanip>
+#include <iostream>
+
 namespace subpernets
 {
 
@@ -14,7 +17,7 @@ Spn::Spn(const int boxes, const int boxsize, const SBox& sbox, const Permutation
 {
 }
 
-BitArray Spn::encrypt(const BitArray plaintxt)
+BitArray Spn::encrypt(const BitArray& plaintxt) const
 {
 	BitArray data = plaintxt;
 	for (int i = 0; i < rounds - 1; i++)
@@ -29,7 +32,7 @@ BitArray Spn::encrypt(const BitArray plaintxt)
 	return data;
 }
 
-BitArray Spn::decrypt(const BitArray ciphertxt)
+BitArray Spn::decrypt(const BitArray& ciphertxt) const
 {
 	BitArray data = ciphertxt;
 	data ^= keys[rounds];
