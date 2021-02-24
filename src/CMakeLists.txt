@@ -4,6 +4,8 @@ project(sub-per-net)
 
 add_executable(${PROJECT_NAME}
 	bitarray.cpp
+	cor-matrix.cpp
+	linear-attack.cpp
 	main.cpp
 	permutation.cpp
 	program.cpp
